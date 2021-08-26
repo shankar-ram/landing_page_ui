@@ -1,4 +1,7 @@
-
+body{
+    background-color: #200F21;
+    overflow-x: hidden;
+}
 h1{
     
     color: white;
@@ -256,4 +259,18 @@ footer .text-reset{
 
 footer .contact{
     text-align: left;
+    margin-bottom: 1rem;
+}
+
+.live-price{
+    /* padding-left: 7rem;
+    padding-right: 2rem; */
+    padding:0 3% 5% 3%;
+    margin-left:1rem;
+    
+    background-color:#200F21 ;
+}
+
+.live-price h3{
+    color: whitesmoke;
 }

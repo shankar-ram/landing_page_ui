@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import lottie from './CryptoLottie.gif'
 import Footer from './Footer'
 import NavBar  from './Navbar';
@@ -18,9 +18,86 @@ import Invest from './cash.png'
 import Transaction from './notes.png'
 import Secure from './shield.png'
 import Arrow from './up-arrow.png'
+import Asterisk from './asterisk.png'
+import axios from "axios";
+import {Row,Col} from 'reactstrap'
 const Home=()=>{
-    
+  const [isNavVisible, setNavVisibility] = React.useState(false);
+  const [isSmallScreen, setIsSmallScreen] = React.useState(false);
+  const [liveprice_BNB,setlive_BNB] = React.useState(0)
+  const [liveprice_BTC,setlive_BTC] = React.useState(0)
+  const [width,setwidth] = React.useState(window.innerWidth)
+  const [liveprice_ETH,setlive_ETH] = React.useState(0)
+  const [conversion,setconversion] = React.useState(1);
+  const [livenews,setlivenews] = React.useState("")
+  const [btc_per,setbtc_per] = React.useState(0)
+  const [bnb_per,setbnb_per] = React.useState(0);
+  const [eth_per,seteth_per] = React.useState(0);
+  const [features,setfeatures] = React.useState([])
    
+
+  useEffect(() => { 
+    axios({
+      method:"get",
+      url:"https://api.anteagle.tech/news",
+      headers:{
+          'Accept' : "Application/JSON",
+          'Content-type' : "application/json"
+      }
+  }).then(res=>{
+      if(res.data){
+          setlivenews(res.data.news)
+      }
+  })
+  axios({
+    method:"get",
+    url:"https://api.anteagle.tech/features",
+    headers:{
+        'Accept' : "Application/JSON",
+        'Content-type' : "application/json"
+    }
+}).then(res=>{
+    if(res.data){
+      console.log(res.data.features)
+        setfeatures(res.data.features)
+    }
+})
+
+
+setInterval(()=>{
+
+  axios({
+    method:"get",
+    url: "https://api.exchangerate.host/convert?from=USD&to=INR"
+  }).then(res=>{
+    localStorage.setItem("conversion",res.data.info.rate)
+    setconversion(res.data.info.rate)
+  })
+ 
+},10000)
+const all = new WebSocket("wss://stream.binance.com:9443/ws/!miniTicker@arr")
+all.onmessage = evt => {
+  const g = JSON.parse(evt.data)
+  for(let i=0;i<g.length;i++){
+    if(g[i]["s"] == "BTCUSDT"){
+      setlive_BTC(g[i]["c"])
+      const temp = parseFloat(((g[i]["c"] - g[i]["o"])/g[i]["o"])*100).toFixed(2)
+      setbtc_per(temp)
+    }
+    if(g[i]["s"] == "BNBUSDT"){
+      setlive_BNB(g[i]["c"])
+      const temp = parseFloat(((g[i]["c"] - g[i]["o"])/g[i]["o"])*100).toFixed(2)
+      setbnb_per(temp)
+    }
+    if(g[i]["s"] == "ETHUSDT"){
+      setlive_ETH(g[i]["c"])
+      const temp = parseFloat(((g[i]["c"] - g[i]["o"])/g[i]["o"])*100).toFixed(2)
+      seteth_per(temp)
+    }
+  }
+}
+  }, []);
+  
     return(<>
     
     <section id="header" className="d-flex align-items-center">
@@ -46,16 +123,61 @@ const Home=()=>{
                  </div>
             </div>
            <div className="col-lg-6 order-1 order-lg-2 header-img">
- <img src={lottie} className=" lot" ></img>                
+              <img src={lottie} className=" lot" ></img>                
            </div>
            </div>
         </div>
     </div>
-    
-  </div>       
+   
+  </div> 
+         
+       
+
         </section>
 
-        
+        <div className="row live-price">
+          <div class="col-lg-2 col-md-4 col-sm-6 col-6 " style={{paddingBottom:"1.2rem"}}>
+             <h4>BTC/INR </h4>
+             <h4><span style={{color:btc_per > 0 ? "green" : "red"}}>{btc_per} %</span></h4>
+             <h4 style={{color:'gold',fontSize:"1.4rem"}} class="prices">₹ {parseFloat(liveprice_BTC*conversion).toFixed(2)}</h4>
+            <h4 style={{fontSize:"1.4rem"}} >$ {parseFloat(liveprice_BTC).toFixed(2)}</h4>
+              
+          </div>
+          <div class="col-lg-2 col-md-4 col-sm-6  col-6" style={{paddingBottom:"1.2rem"}}>
+            <h4>BNB/INR </h4>
+             <h4><span style={{color:btc_per > 0 ? "green" : "red"}}>{bnb_per} %</span></h4>
+             <h4 style={{color:'gold',fontSize:"1.4rem"}}>₹ {parseFloat(liveprice_BNB*conversion).toFixed(2)}</h4>
+            <h4 style={{fontSize:"1.4rem"}} >$ {parseFloat(liveprice_BNB).toFixed(2)}</h4>
+          </div>
+          <div class="col-lg-2 col-md-4 col-sm-6  col-6" style={{paddingBottom:"1.2rem"}}>
+            <h4>ETH/INR </h4>
+             <h4><span style={{color:btc_per > 0 ? "green" : "red"}}>{eth_per} %</span></h4>
+             <h4 style={{color:'gold',fontSize:"1.4rem"}}>₹ {parseFloat(liveprice_ETH*conversion).toFixed(2)}</h4>
+            <h4 style={{fontSize:"1.4rem"}} >$ {parseFloat(liveprice_ETH).toFixed(2)}</h4>
+          </div>
+          <div class="col-lg-2 col-md-4 col-sm-6  col-6" style={{paddingBottom:"1.2rem"}}>
+            <h4>ANTEAG/INR </h4>
+             <h4><span style={{color:btc_per > 0 ? "green" : "red"}}>{eth_per} %</span></h4>
+             <h4 style={{color:'gold',fontSize:"1.4rem"}}>₹ {parseFloat(liveprice_ETH*conversion).toFixed(2)}</h4>
+            <h4 style={{fontSize:"1.4rem"}} >$ {parseFloat(liveprice_ETH).toFixed(2)}</h4>
+          </div>
+          <div class="col-lg-2 col-md-4 col-sm-6  col-6" style={{paddingBottom:"1.2rem"}}>
+            <h4>EAGLE/INR </h4>
+             <h4><span style={{color:btc_per > 0 ? "green" : "red"}}>{eth_per} %</span></h4>
+             <h4 style={{color:'gold',fontSize:"1.4rem"}}>₹ {parseFloat(liveprice_ETH*conversion).toFixed(2)}</h4>
+            <h4 style={{fontSize:"1.4rem"}} >$ {parseFloat(liveprice_ETH).toFixed(2)}</h4>
+          </div>
+          <div class="col-lg-2 col-md-4 col-sm-6  col-6" style={{paddingBottom:"1.2rem"}}>
+            <h4>EAGLEANT/INR </h4>
+             <h4><span style={{color:btc_per > 0 ? "green" : "red"}}>{eth_per} %</span></h4>
+             <h4 style={{color:'gold',fontSize:"1.4rem"}}>₹ {parseFloat(liveprice_ETH*conversion).toFixed(2)}</h4>
+            <h4 style={{fontSize:"1.4rem"}} >$ {parseFloat(liveprice_ETH).toFixed(2)}</h4>
+          </div>
+       
+       
+        </div>
+    
+
         <section className="white-section" id="features">
     <div className="row feature-text"> 
    
@@ -78,7 +200,7 @@ const Home=()=>{
         <ul className="list-unstyled points">
            <li>
            {
-            ["Can't use stop-loss and targets together","Monitoring the markets all day","Setting price alarms","Using a portfolio tracking app"].map((ans,i)=>{
+            ["Keeping track of the portfolio","Keeping a constant watch on the markets","Monitor the price the range","Cannot club stop-loss and targets"].map((ans,i)=>{
                 return(
                     <div className="d-flex align-items-center">
             <div>
@@ -99,6 +221,7 @@ const Home=()=>{
 
       
       </div>
+     
       <div className="feature-box col-lg-6 col-md-6 ">
         <img src={Happy} className="happy"></img>
         <h5 style={{color:"darkgreen",fontWeight:"lighter",lineHeight:"1.5"}}>The New Way</h5>
@@ -106,7 +229,7 @@ const Home=()=>{
         <h5 style={{fontWeight:"lighter",lineHeight:"1.5"}}>Hassle-free</h5>
         <ul className="list-unstyled points">
            <li>{
-            ["Easily set stop-loss and take-profit orders","Set entry, stop loss, take profit and relax","Get notified when your orders trigger","Automatic profit/loss tracking"].map((ans,i)=>{
+            ["Automated portfolio updation","Provision for stop-loss, take-profit orders","Extensive full trade facility","Automatic order trigerring"].map((ans,i)=>{
                 return(
                     <div className="d-flex align-items-center">
             <div>
@@ -126,9 +249,12 @@ const Home=()=>{
            </li> 
 
         </ul>
+        
       </div>
-
+     
     </div>
+
+    
     <hr className="  clearfix  pb-0"/>
     <div className="row chart">
         <div className="feature-box col-lg-6 col-md-6 ">
@@ -179,28 +305,42 @@ const Home=()=>{
              <img src={Check}></img>
              </div>
              <div className="content">
-                <h5><span className="mb-0">Bitcoin </span><span style={{color:"#00cc00"}} className="mb-0"> 327%<img src={Arrow} className="arrow"></img></span></h5>
+                <h5><span className="mb-0">Automata </span><span style={{color:"#00cc00"}} className="mb-0"> 275%<img src={Arrow} className="arrow"></img></span></h5>
              </div>
             
             
            </div>
            <div className="year">
-              <h6>From Aug 2020 - Aug 2021</h6>
+              <h6>From July 2021 - Aug 2021</h6>
            </div>
            <div  className=" coin-rate d-flex align-items-center">
              <div>
              <img src={Check}></img>
              </div>
              <div className="content">
-                <h5><span className="mb-0">Dogecoin </span><span style={{color:"#00cc00"}} className="mb-0"> 8536%<img src={Arrow} className="arrow"></img></span></h5>
-                
+                <h5><span className="mb-0">Dogecoin </span><span style={{color:"#00cc00"}} className="mb-0"> 8238%<img src={Arrow} className="arrow"></img></span></h5>
+               
              </div>
             
            </div>
            <div className="year">
               <h6>From Aug 2020 - Aug 2021</h6>
-           </div>
           
+           </div>
+           <div  className=" coin-rate d-flex align-items-center">
+             <div style={{marginTop:"-3.1rem",marginLeft:"0.2rem"}}>
+             <img src={Asterisk} style={{width:"10px"}}></img>
+             </div>
+             <div className="content">
+                <p style={{fontWeight:"lighter",color:"grey"}}><span className="mt-0"> This market has a lot of potential, but one should always know when to enter the market and when to leave. </span></p>
+             </div>
+            
+            
+           </div>
+
+           <div>
+            
+           </div>
            
            </li>
 
@@ -239,17 +379,17 @@ const Home=()=>{
            <h1>Get started with 3 steps</h1>
 <div className="row">
         <div className="gstarted-box col-lg-4 col-md-4 ">
-          <img src={User} style={{marginBottom:"1rem"}}></img>
+          <img src={User} style={{paddingBottom:"1rem"}}></img>
           <h4 >1. Create an account</h4>
           <p >Sign up with your email and mobile in just 5 minutes</p>
         </div>
         <div className="gstarted-box col-lg-4 col-md-4 ">
-        <img src={Money} style={{marginBottom:"1rem"}}></img>
+        <img src={Money} style={{paddingBottom:"1rem"}}></img>
           <h4>2. Add INR to your wallet</h4>
           <p >Quickly add money to your AntEagle investment wallet</p>
         </div>
         <div className="gstarted-box col-lg-4 col-md-4 ">
-        <img src={Invest} style={{marginBottom:"1rem"}}></img>
+        <img src={Invest} style={{paddingBottom:"1rem"}}></img>
           <h4 >3. Start investing in crypto</h4>
           <p >Buy & Sell a variety of top coins at the best prices</p>
         </div>

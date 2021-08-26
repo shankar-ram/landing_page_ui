@@ -28,13 +28,9 @@ const Footer=()=>{
           </p>
           
           <h5 className="text-uppercase fw-bold mb-4" style={{marginTop:"3rem"}}>Our social network handles</h5>
-          <a href="https://www.facebook.com/Sarvvid-AI-104737524690985/" target="_blank" className="me-4 text-reset">
-        <img src={fb}></img>
-      </a>
-      <a href="https://www.instagram.com/sarvvid_ai/?hl=en" target="_blank" className="me-4 text-reset">
-        <img src={ig}></img>
-      </a>
-      <a href="https://twitter.com/sarvvid?lang=en"  target="_blank" className="me-4 text-reset">
+         
+      
+      <a  href="https://twitter.com/sarvvid?lang=en"  target="_blank" className="me-4 text-reset">
         <img src={tw}></img>
       </a>
       <a href="https://www.linkedin.com/in/sarvvid-ai-6345871b5/"  target="_blank" className="me-4 text-reset">
@@ -51,9 +47,9 @@ const Footer=()=>{
           <h5 className="text-uppercase fw-bold mb-4">
             Contact
           </h5>
-          <p className="contact"><img src={pin}></img> 7058/5 , 1st Floor, Tank Rd, Mata Rameshwari Nehru Nagar, Karol Bagh, Delhi, 110005</p>
+          {/* <p className="contact"><img src={pin}></img> 7058/5 , 1st Floor, Tank Rd, Mata Rameshwari Nehru Nagar, Karol Bagh, Delhi, 110005</p> */}
           <p className="contact"><img src={email}></img> admin@anteagle.tech</p>
-          <p className="contact"><img src={call}></img> +919711217643, +919555555801</p>
+          {/* <p className="contact"><img src={call}></img> +919711217643, +919555555801</p> */}
 
         </div>
         </div>

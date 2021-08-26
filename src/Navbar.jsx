@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../node_modules/bootstrap/dist/js/bootstrap.bundle'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from '../src/FinalCryptologo.png'
@@ -19,15 +19,18 @@ const NavBar=()=>{
 
     <div className="container-fluid col-11">
     <div>
-    <img src={logo}  class="img-fluid img-thumbnail rounded-circle"style={{width:"80px",marginLeft:"-1.3rem"}}></img>
-      <NavLink className="navbar-brand " to="#" style={{width:"3rem",marginLeft:"1rem"}}>AntEagle Exchange</NavLink>
+    <img src={logo}  class="img-fluid img-thumbnail rounded-circle"style={{width:"80px",marginLeft:"-1.3rem",marginTop:"0.2rem"}}></img>
+      
+      <NavLink className="navbar-brand " to="#" style={{width:"3rem",marginLeft:"1rem"}}>AntEagle Exchange </NavLink>
+      <p style={{marginLeft:"5.3rem",marginTop:"-2rem"}}><NavLink style={{textDecoration:"none",color:"white"}} to="">By the traders for the traders</NavLink></p>
     </div>
+    
     
       <button className="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon "></span>
       </button>
      
-    
+     
 
     
 
@@ -41,7 +44,7 @@ const NavBar=()=>{
             <NavLink activeClassName="menu_active" className="nav-link active" aria-current="page" to="c#a">Home</NavLink>
           </li>
           <li className="nav-item">
-            <NavLink activeClassName="menu_active" className="nav-link" to="a#b">Link</NavLink>
+            <NavLink activeClassName="menu_active" className="nav-link" to="a#b">AntNet</NavLink>
           </li>
           <li className="nav-item">
             <NavLink activeClassName="menu_active" className="nav-link" to="b#x">Services</NavLink>
@@ -60,19 +63,22 @@ const NavBar=()=>{
             </ul>
          
    
-      
+        
       
     </div>
+  
     </div>
     
   </div>
+  
 </nav>
+
  </div>
+ 
       </div>
-
+      
      </div>
-    
-
+  
       
      </>
    )
