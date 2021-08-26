@@ -84,13 +84,11 @@ li{
     margin-bottom:3rem;
 }
 
-footer{
-    background-color:	#E4D8DC;
-}
+
 
 .copy{
 
- width:80%;
+ width:100%;
  margin:0 auto;
 
 }
@@ -236,4 +234,26 @@ footer{
 
 .year h6{
     font-weight: normal;
+}
+
+footer{
+    background-color:#E4D8DC;
+    font-weight: bold;
+}
+/* footer .social-media{
+    margin-left: 3%;
+}
+
+footer .social-icons{
+    margin-right:1%;
+} */
+
+footer .text-reset{
+    text-decoration: none;
+    margin-bottom: 2rem;
+}
+
+
+footer .contact{
+    text-align: left;
 }

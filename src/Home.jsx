@@ -245,7 +245,7 @@ const Home=()=>{
         </div>
         <div className="gstarted-box col-lg-4 col-md-4 ">
         <img src={Money} style={{marginBottom:"1rem"}}></img>
-          <h4>2. Add funds to INRD wallet</h4>
+          <h4>2. Add INR to your wallet</h4>
           <p >Quickly add money to your AntEagle investment wallet</p>
         </div>
         <div className="gstarted-box col-lg-4 col-md-4 ">
