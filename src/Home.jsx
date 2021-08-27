@@ -100,7 +100,7 @@ all.onmessage = evt => {
   
     return(<>
     
-    <section id="header" className="d-flex align-items-center">
+    <section id="header" className="d-flex align-items-center" >
 
     <div className=" bar container-fluid nav_bg" >
       <div className="row">
@@ -118,7 +118,7 @@ all.onmessage = evt => {
                 Experience The Modern Crypto Exchange 
                 </h4>
                 <div >
-                    <NavLink to="" className=" reg btn mt-3  ">Register or Login</NavLink>
+                    <NavLink to="" style={{width:"40%"}} className=" reg btn mt-3  ">Register or Login</NavLink>
 
                  </div>
             </div>
@@ -135,7 +135,7 @@ all.onmessage = evt => {
 
         </section>
 
-        <div className="row live-price">
+        <div className="row live-price" >
           <div class="col-lg-2 col-md-4 col-sm-6 col-6 " style={{paddingBottom:"1.2rem"}}>
              <h4>BTC/INR </h4>
              <h4><span style={{color:btc_per > 0 ? "green" : "red"}}>{btc_per} %</span></h4>

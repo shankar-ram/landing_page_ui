@@ -9,7 +9,7 @@ const NavBar=()=>{
 
    return(
      <>
-     <div className=" bar container-fluid nav_bg" >
+     {/* <div className=" bar container-fluid nav_bg" >
       <div className="row">
       
         <div className="col-12 mx-auto">
@@ -77,8 +77,29 @@ const NavBar=()=>{
  
       </div>
       
-     </div>
-  
+     </div> */}
+     
+
+
+     <section id="title">
+        <nav className="navbar fixed-top">
+          <div className="brand-title">AntEagle</div>
+          <a to="" class="toggle-button">
+          <span class="tbar"></span>
+          <span class="tbar"></span>
+          <span class="tbar"></span>
+          </a>
+         
+          <div className="navbar-links"> 
+          <ul>
+              <li className="nav-item" ><NavLink  to="/" activeClassName="menu-active" aria-current="page">Home</NavLink></li>
+              <li className="nav-item"><NavLink  to="/a" activeClassName="menu_active">AntNet</NavLink></li>
+              <li className="nav-item"><NavLink to="/b"  activeClassName="menu_active">Home</NavLink></li>
+            </ul>
+          </div>
+          
+        </nav>
+     </section>
       
      </>
    )
@@ -93,7 +114,32 @@ const NavBar=()=>{
 
 
 
-
+{/* <div className="container-fluid heading">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Pricing</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>  
+        </div> */}
 
 
 
